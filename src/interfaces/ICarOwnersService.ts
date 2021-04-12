@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { OwnerEntity } from './OwnerEntity'
-import { CarEntity } from './CarEntity'
+import { OwnerEntity } from './OwnerEntity';
+import { CarEntity } from './CarEntity';
 
 export interface ICarOwnersService {
   getOwners(): Observable<OwnerEntity[]>;

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { CarEntity } from '../../interfaces/CarEntity';
-import { CarOwnersService } from '../../services/CarOwners.service';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormControl} from '@angular/forms';
+import {CarEntity} from '../../interfaces/CarEntity';
+import {CarOwnersService} from '../../services/CarOwners.service';
 
 @Component({
   selector: 'app-user-editor',
@@ -10,9 +10,10 @@ import { CarOwnersService } from '../../services/CarOwners.service';
 })
 export class UserEditorComponent implements OnInit {
   cars: CarEntity[];
-  form:FormGroup;
+  form: FormGroup;
 
-  constructor(private CarOwnersService: CarOwnersService) { }
+  constructor(private CarOwnersService: CarOwnersService) {
+  }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -22,7 +23,7 @@ export class UserEditorComponent implements OnInit {
     });
 
     this.initCars();
-    
+
   }
 
   initCars(): void {
@@ -34,11 +35,11 @@ export class UserEditorComponent implements OnInit {
         aModel: 'Optima',
         aYear: 2009,
       }
-    )
+    );
   }
 
-  submit(){
-    console.log(this.form)
+  submit() {
+    console.log(this.form);
   }
 
   addCar() {
@@ -50,11 +51,11 @@ export class UserEditorComponent implements OnInit {
         aModel: 'Optima',
         aYear: 2009,
       }
-    )
-    console.log(this.cars)
+    );
+    console.log(this.cars);
   }
 
   removeCar(id: number) {
-    this.cars.splice(id, 1)
+    this.cars.splice(id, 1);
   }
 }

@@ -1,22 +1,26 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { MessageService } from '../app/message.service';
-import { from, Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-import { OwnerEntity } from '../interfaces/OwnerEntity';
-import { ICarOwnersService } from '../interfaces/ICarOwnersService'
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {MessageService} from '../app/message.service';
+import {from, Observable, of} from 'rxjs';
+import {catchError, map, tap} from 'rxjs/operators';
+import {OwnerEntity} from '../interfaces/OwnerEntity';
+import {ICarOwnersService} from '../interfaces/ICarOwnersService';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class CarOwnersService implements ICarOwnersService {
+  httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
 
   private entityUrl = 'api/entity';
-  
+
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
-  
-    getOwners(): Observable<OwnerEntity[]> {
+    private messageService: MessageService) {
+  }
+
+  getOwners(): Observable<OwnerEntity[]> {
     return this.http.get<OwnerEntity[]>(this.entityUrl)
       .pipe(
         tap(_ => this.log('fetched entity')),
@@ -25,19 +29,15 @@ export class CarOwnersService implements ICarOwnersService {
   }
 
 
+  deleteOwner(aOwnerId: number): Observable<OwnerEntity> {
+    const url = `${this.entityUrl}/${aOwnerId}`;
 
-
-  deleteOwner(aOwnerId: number){
-    let deleteUrl = `${this.entityUrl}/${aOwnerId}`;
-    // this.owners = this.owners.filter(item => item.aId !== id)
-    return this.http.delete(deleteUrl)
-    .pipe(
-      tap(_ => this.log('fetched entity')),
-      catchError(this.handleError<OwnerEntity[]>('getEntity', []))
+    return this.http.delete<OwnerEntity>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted owner id=${aOwnerId}`)),
+      catchError(this.handleError<OwnerEntity>('deleteOwner'))
     );
-      
   }
-  
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 

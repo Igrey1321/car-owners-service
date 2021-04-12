@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { OwnerEntity } from '../../interfaces/OwnerEntity'
-import { CarOwnersService } from '../../services/CarOwners.service';
+import {OwnerEntity} from '../../interfaces/OwnerEntity';
+import {CarOwnersService} from '../../services/CarOwners.service';
 
 @Component({
   selector: 'app-home',
@@ -12,28 +12,29 @@ import { CarOwnersService } from '../../services/CarOwners.service';
 export class HomeComponent implements OnInit {
   owners: OwnerEntity[];
   selectedOwner: OwnerEntity;
-  selectId: number;
 
-  constructor(private CarOwnersService: CarOwnersService) { }
+  constructor(private CarOwnersService: CarOwnersService) {
+  }
 
   ngOnInit() {
     this.getOwners();
   }
 
-  getOwners(): void {
-    this.CarOwnersService.getOwners()
-    .subscribe(owners => {
-      this.owners = owners
-    });
-  }
-
-  onSelect(owner: OwnerEntity): void{
-    this.selectId = owner.aId;
+  onSelect(owner: OwnerEntity): void {
     this.selectedOwner = owner;
   }
 
-  deleteOwner(id: number): void {
-    this.CarOwnersService.deleteOwner(id)
-    
+
+  getOwners(): void {
+    this.CarOwnersService.getOwners()
+      .subscribe(owners => {
+        this.owners = owners;
+      });
   }
+
+  deleteOwner(selectedOwner: OwnerEntity): void {
+    this.owners = this.owners.filter(h => h !== selectedOwner);
+    this.CarOwnersService.deleteOwner(selectedOwner.aOwnerId).subscribe();
+  }
+
 }
