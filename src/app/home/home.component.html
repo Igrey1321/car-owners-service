@@ -1,0 +1,50 @@
+<h1>Владельцы Автомобилей</h1>
+
+<div class="content">
+
+  <input type="hidden" #selection>
+
+  <nav>
+    <ul class="d-flex">
+      <li class="button">
+        <a class="btn btn-primary add" routerLink="/editor" routerLinkActive="active" (click)="selection.value = ''">
+          Добавить
+        </a>
+      </li>
+      <li class="button">
+        <a class="btn btn-success" routerLink="/" routerLinkActive="active" (click)="selection.value = 'getOwnerById'">
+          Просмотр
+        </a>
+      </li>
+      <li class="button">
+        <a class="btn btn-warning" (click)="selection.value = 'editOwner'">
+          Редактировать
+        </a>
+      </li>
+      <li class="button">
+        <a class="btn btn-danger" (click)="deleteOwner(selectId)">
+          Удалить
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <table class="table table-bordered border-primary tableMain">
+    <thead>
+      <tr>
+        <th scope="col">Фамилия</th>
+        <th scope="col">Имя</th>
+        <th scope="col">Отчество</th>
+        <th scope="col">Количество автомобилей</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let owner of owners" (click)="onSelect(owner)" [class.selected]="owner === selectedOwner">
+      <tr>
+        <td class="own" scope="col">{{owner.aLastName}}</td>
+        <td class="own" scope="col">{{owner.aFirstName}}</td>
+        <td class="own" scope="col">{{owner.aMiddleName}}</td>
+        <td class="own" scope="col">{{owner.aCars.length}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
