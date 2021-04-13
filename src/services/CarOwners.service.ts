@@ -11,6 +11,7 @@ export class CarOwnersService implements ICarOwnersService {
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
+  activeOwner: OwnerEntity;
 
   private entityUrl = 'api/entity';
 
@@ -26,6 +27,13 @@ export class CarOwnersService implements ICarOwnersService {
         tap(_ => this.log('fetched entity')),
         catchError(this.handleError<OwnerEntity[]>('getEntity', []))
       );
+  }
+
+
+  // @ts-ignore
+  editOwner(aOwner: OwnerEntity): Observable<OwnerEntity> {
+    console.log(aOwner);
+    this.activeOwner = aOwner;
   }
 
 

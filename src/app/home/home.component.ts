@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 import {OwnerEntity} from '../../interfaces/OwnerEntity';
 import {CarOwnersService} from '../../services/CarOwners.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +31,10 @@ export class HomeComponent implements OnInit {
       .subscribe(owners => {
         this.owners = owners;
       });
+  }
+
+  editOwner(aOwner: OwnerEntity): void {
+    this.CarOwnersService.editOwner(aOwner);
   }
 
   deleteOwner(selectedOwner: OwnerEntity): void {

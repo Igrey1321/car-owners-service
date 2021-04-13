@@ -12,12 +12,12 @@
         </a>
       </li>
       <li class="button">
-        <a class="btn btn-success" routerLink="/" routerLinkActive="active" (click)="selection.value = 'getOwnerById'">
+        <a class="btn btn-success" routerLink="/editor" routerLinkActive="active" (click)="selection.value = 'getOwnerById'">
           Просмотр
         </a>
       </li>
       <li class="button">
-        <a class="btn btn-warning" (click)="selection.value = 'editOwner'">
+        <a class="btn btn-warning" routerLink="/editor" (click)="editOwner(selectedOwner)">
           Редактировать
         </a>
       </li>

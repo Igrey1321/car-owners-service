@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {CarEntity} from '../../interfaces/CarEntity';
 import {CarOwnersService} from '../../services/CarOwners.service';
+
 
 @Component({
   selector: 'app-user-editor',
@@ -9,7 +10,7 @@ import {CarOwnersService} from '../../services/CarOwners.service';
   styleUrls: ['./user-editor.component.scss']
 })
 export class UserEditorComponent implements OnInit {
-  cars: CarEntity[];
+  cars: object = this.CarOwnersService.activeOwner.aCars;
   form: FormGroup;
 
   constructor(private CarOwnersService: CarOwnersService) {
@@ -21,21 +22,6 @@ export class UserEditorComponent implements OnInit {
       aLastName: new FormControl(''),
       aMiddleName: new FormControl(''),
     });
-
-    this.initCars();
-
-  }
-
-  initCars(): void {
-    this.cars.push(
-      {
-        aIdCar: 1,
-        aNumber: 'AX6548GH',
-        aBrand: 'KIA',
-        aModel: 'Optima',
-        aYear: 2009,
-      }
-    );
   }
 
   submit() {
@@ -43,19 +29,20 @@ export class UserEditorComponent implements OnInit {
   }
 
   addCar() {
+    // @ts-ignore
     this.cars.push(
       {
         aIdCar: 1,
-        aNumber: 'AX6548GH',
-        aBrand: 'KIA',
-        aModel: 'Optima',
-        aYear: 2009,
+        aNumber: '',
+        aBrand: '',
+        aModel: '',
+        aYear: 1990,
       }
     );
-    console.log(this.cars);
   }
 
   removeCar(id: number) {
+    // @ts-ignore
     this.cars.splice(id, 1);
   }
 }
