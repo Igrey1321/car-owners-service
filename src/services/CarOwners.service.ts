@@ -29,20 +29,18 @@ export class CarOwnersService implements ICarOwnersService {
       );
   }
 
-
-  // @ts-ignore
   editOwner(aOwner: OwnerEntity): Observable<OwnerEntity> {
-    console.log(aOwner);
-    this.activeOwner = aOwner;
+    // @ts-ignore
+    return this.activeOwner = aOwner;
   }
 
 
-  deleteOwner(aOwnerId: number): Observable<OwnerEntity> {
+  deleteOwner(aOwnerId: number): Observable<OwnerEntity[]> {
     const url = `${this.entityUrl}/${aOwnerId}`;
 
-    return this.http.delete<OwnerEntity>(url, this.httpOptions).pipe(
+    return this.http.delete<OwnerEntity[]>(url, this.httpOptions).pipe(
       tap(_ => this.log(`deleted owner id=${aOwnerId}`)),
-      catchError(this.handleError<OwnerEntity>('deleteOwner'))
+      catchError(this.handleError<OwnerEntity[]>('deleteOwner'))
     );
   }
 

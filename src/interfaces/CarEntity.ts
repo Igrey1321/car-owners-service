@@ -1,5 +1,5 @@
 export interface CarEntity {
-  aIdCar: number;
+  aCarId: number;
   aNumber: string;
   aBrand: string;
   aModel: string;

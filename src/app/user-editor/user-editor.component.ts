@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
+import {OwnerEntity} from '../../interfaces/OwnerEntity';
 import {CarEntity} from '../../interfaces/CarEntity';
 import {CarOwnersService} from '../../services/CarOwners.service';
 
@@ -10,10 +11,12 @@ import {CarOwnersService} from '../../services/CarOwners.service';
   styleUrls: ['./user-editor.component.scss']
 })
 export class UserEditorComponent implements OnInit {
-  cars: object = this.CarOwnersService.activeOwner.aCars;
+  owner: OwnerEntity;
+  cars: CarEntity[];
+  selectedCar: CarEntity;
   form: FormGroup;
 
-  constructor(private CarOwnersService: CarOwnersService) {
+  constructor(private carOwnersService: CarOwnersService) {
   }
 
   ngOnInit(): void {
@@ -22,17 +25,35 @@ export class UserEditorComponent implements OnInit {
       aLastName: new FormControl(''),
       aMiddleName: new FormControl(''),
     });
+    this.getOwner();
+    this.getCars();
   }
 
-  submit() {
+  getOwner(): void {
+    this.owner = this.carOwnersService.activeOwner;
+    this.form.patchValue({
+      aFirstName: this.owner.aFirstName,
+      aLastName: this.owner.aLastName,
+      aMiddleName: this.owner.aMiddleName,
+    });
+  }
+
+  getCars(): void {
+    this.cars = this.carOwnersService.activeOwner.aCars;
+  }
+
+  onSelect(car: CarEntity): void {
+    this.selectedCar = car;
+  }
+
+  submit(): void {
     console.log(this.form);
   }
 
-  addCar() {
-    // @ts-ignore
+  addCar(): void {
     this.cars.push(
       {
-        aIdCar: 1,
+        aCarId: 1,
         aNumber: '',
         aBrand: '',
         aModel: '',
@@ -41,8 +62,8 @@ export class UserEditorComponent implements OnInit {
     );
   }
 
-  removeCar(id: number) {
-    // @ts-ignore
-    this.cars.splice(id, 1);
+  removeCar(selectedCar: CarEntity): void {
+    this.cars = this.cars.filter(h => h !== selectedCar);
+    this.carOwnersService.deleteOwner(selectedCar.aCarId).subscribe();
   }
 }

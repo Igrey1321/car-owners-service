@@ -16,5 +16,5 @@ export interface ICarOwnersService {
 
   editOwner(aOwner: OwnerEntity): Observable<OwnerEntity>;
 
-  deleteOwner(aOwnerId: number): void;
+  deleteOwner(aOwnerId: number): Observable<OwnerEntity[]>;
 }

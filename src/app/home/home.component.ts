@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 
 import {OwnerEntity} from '../../interfaces/OwnerEntity';
 import {CarOwnersService} from '../../services/CarOwners.service';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +13,10 @@ export class HomeComponent implements OnInit {
   owners: OwnerEntity[];
   selectedOwner: OwnerEntity;
 
-  constructor(private CarOwnersService: CarOwnersService) {
+  constructor(private carOwnersService: CarOwnersService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): any {
     this.getOwners();
   }
 
@@ -27,19 +26,19 @@ export class HomeComponent implements OnInit {
 
 
   getOwners(): void {
-    this.CarOwnersService.getOwners()
+    this.carOwnersService.getOwners()
       .subscribe(owners => {
         this.owners = owners;
       });
   }
 
   editOwner(aOwner: OwnerEntity): void {
-    this.CarOwnersService.editOwner(aOwner);
+    this.carOwnersService.editOwner(aOwner);
   }
 
   deleteOwner(selectedOwner: OwnerEntity): void {
     this.owners = this.owners.filter(h => h !== selectedOwner);
-    this.CarOwnersService.deleteOwner(selectedOwner.aOwnerId).subscribe();
+    this.carOwnersService.deleteOwner(selectedOwner.aOwnerId).subscribe();
   }
 
 }

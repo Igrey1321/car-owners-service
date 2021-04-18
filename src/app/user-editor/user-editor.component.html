@@ -1,15 +1,16 @@
 <form class=" m-2" [formGroup]="form" (ngSubmit)="submit()">
   <div class="w-25 p-1">
     <label for="exampleInputLastName" class="form-label w-25">Фамилия</label>
-    <input type="text" class="form-control" id="exampleInputLastName" aria-describedby="emailHelp">
+    <input type="text" class="form-control" id="exampleInputLastName" aria-describedby="emailHelp"
+           formControlName="aLastName">
   </div>
   <div class="w-25 p-1">
     <label for="exampleInputName" class="form-label w-25">Имя</label>
-    <input type="text" class="form-control" id="exampleInputName">
+    <input type="text" class="form-control" id="exampleInputName" formControlName="aFirstName">
   </div>
   <div class="w-25 p-1">
     <label for="exampleInputMiddleName" class="form-label w-25">Отчество</label>
-    <input type="text" class="form-control" id="exampleInputMiddleName">
+    <input type="text" class="form-control" id="exampleInputMiddleName" formControlName="aMiddleName">
   </div>
   <h2>Автомобили</h2>
   <div class="d-flex">
@@ -18,13 +19,15 @@
     <div class="mr-2 size">Модель</div>
     <div class="mr-2 size">Год</div>
   </div>
-  <div class="mt-2 mb-2 block" *ngFor="let cars of cars">
-    <input class="mr-2 size" type="text" value={{cars.aNumber}}>
-    <input class="mr-2 size" type="text" value={{cars.aBrand}}>
-    <input class="mr-2 size" type="text" value={{cars.aNumber}}>
-    <input class="mr-2 size" type="text" value={{cars.aYear}}>
-    <button type="button" class="mr-2 btn btn-danger" (click)="removeCar(cars.aIdCar)">Удалить</button>
+
+  <div class="mt-2 mb-2 block" *ngFor="let car of cars" (click)="onSelect(car)">
+    <input class="mr-2 size" type="text" value={{car.aNumber}}>
+    <input class="mr-2 size" type="text" value={{car.aBrand}}>
+    <input class="mr-2 size" type="text" value={{car.aModel}}>
+    <input class="mr-2 size" type="text" value={{car.aYear}}>
+    <button type="button" class="mr-2 btn btn-danger" (click)="removeCar(car)">Удалить</button>
   </div>
+
   <button type="button" class="btn btn-primary w-25" (click)="addCar()">Добавить aвтомобиль</button>
   <div>
     <button type="submit" class="btn btn-primary m-2">Сохранить</button>

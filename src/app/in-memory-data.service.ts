@@ -6,7 +6,7 @@ import {OwnerEntity} from '../interfaces/OwnerEntity';
   providedIn: 'root',
 })
 export class InMemoryDataService implements InMemoryDbService {
-  createDb() {
+  createDb(): any {
     const entity: OwnerEntity[] = [
       {
         aOwnerId: 0,
@@ -34,7 +34,7 @@ export class InMemoryDataService implements InMemoryDbService {
         aLastName: 'Tolkin',
         aMiddleName: 'Tornado',
         aCars: [{
-          aCarId: 1,
+          aCarId: 2,
           aNumber: 'AX6548GH',
           aBrand: 'KIA',
           aModel: 'Optima',
@@ -47,7 +47,7 @@ export class InMemoryDataService implements InMemoryDbService {
         aLastName: 'Fargo',
         aMiddleName: 'Tornado',
         aCars: [{
-          aCarId: 1,
+          aCarId: 3,
           aNumber: 'AX6548GH',
           aBrand: 'KIA',
           aModel: 'Optima',
@@ -60,7 +60,7 @@ export class InMemoryDataService implements InMemoryDbService {
         aLastName: 'Monstore',
         aMiddleName: 'Tornado',
         aCars: [{
-          aCarId: 1,
+          aCarId: 4,
           aNumber: 'AX6548GH',
           aBrand: 'KIA',
           aModel: 'Optima',
